@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from "express";
 import { BookService } from "./book.service";
 import httpStatus from "http-status-codes"
