@@ -1,12 +1,18 @@
 import { Borrow } from "./borrow.model";
 import { IBorrow } from "./borrow.interface";
 import { Book } from "../book/book.model";
+import AppError from "../../errorHelpers/AppError";
+import httpStatus from "http-status-codes"
+
 
 
 const   createBorrow = async (data: IBorrow) => {
+
     const book = await Book.findById(data.bookId);
 
-    if (!book) throw new Error("Book not found");
+    if (!book){
+      throw new AppError(httpStatus.BAD_REQUEST, "Book not found")
+    } 
     if (!book.available || book.copies < data.quantity) {
       throw new Error("Not enough copies available");
     }
@@ -22,15 +28,16 @@ const   createBorrow = async (data: IBorrow) => {
   }
 
  const getAllBorrows = async () => {
-    return Borrow.find().populate("book");
+    return Borrow.find().populate("bookId");
   }
 
 const  getBorrowSummary = async () => {
     return Borrow.aggregate([
       {
         $group: {
-          _id: "$book",
+          _id: "$bookId",
           totalQuantity: { $sum: "$quantity" },
+          dueDates: { $push: "$dueDate" },
         },
       },
       {
@@ -47,9 +54,12 @@ const  getBorrowSummary = async () => {
       {
         $project: {
           _id: 0,
-          bookTitle: "$bookDetails.title",
-          isbn: "$bookDetails.isbn",
+          book: {
+            title:"$bookDetails.title",
+            isbn: "$bookDetails.isbn",
+          },      
           totalQuantity: 1,
+          dueDates: 1,
         },
       },
     ]);

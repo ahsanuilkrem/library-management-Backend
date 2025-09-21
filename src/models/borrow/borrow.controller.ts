@@ -1,33 +1,46 @@
 import { Request, Response } from "express";
 import { BorrowService } from "./borrow.service";
+import { catchAsync } from "../../utils/catchAsyncts";
+import { sendResponse } from "../../utils/sendRespone";
+import httpStatus from "http-status-codes"
 
 
-const  createBorrow = async (req: Request, res: Response) => {
-    try {
-      const result = await BorrowService.createBorrow(req.body);
-      res.status(201).json({ success: true, data: result });
-    } catch (error: any) {
-      res.status(400).json({ success: false, message: error.message });
-    }
-  }
+const  createBorrow = catchAsync(async (req: Request, res: Response) => {
 
-const  getAllBorrows = async (_req: Request, res: Response) => {
-    try {
-      const result = await BorrowService.getAllBorrows();
-      res.json({ success: true, data: result });
-    } catch (error) {
-      res.status(500).json({ success: false, message: "Failed to get borrows" });
-    }
-  }
+   const result = await BorrowService.createBorrow(req.body);
+   
+   sendResponse(res, {
+      success : true,
+      statusCode : httpStatus.CREATED,
+      message : "Book borrowed successfully",
+      data : result
+   })
+   
+  })
 
-const  getBorrowSummary = async (_req: Request, res: Response) => {
-    try {
-      const summary = await BorrowService.getBorrowSummary();
-      res.json({ success: true, data: summary });
-    } catch (error) {
-      res.status(500).json({ success: false, message: "Failed to get summary" });
-    }
-  }
+const  getAllBorrows = catchAsync(async (req: Request, res: Response) => {
+     const result = await BorrowService.getAllBorrows();
+    
+      sendResponse(res, {
+      success : true,
+      statusCode : httpStatus.OK,
+      message : "All borrow Retrieved successfully",
+      data : result
+   })
+  })
+
+const  getBorrowSummary = catchAsync(async (req: Request, res: Response) => {
+  
+  const summary = await BorrowService.getBorrowSummary();
+
+  sendResponse(res, {
+      success : true,
+      statusCode : httpStatus.OK,
+      message : "Borrowed books summary retrieved successfully",
+      data : summary
+   })
+
+  })
 
 
   export const BorrowController = {
