@@ -48,7 +48,7 @@ const getBookById = async (id: string) => {
 }
 
 const updateBook = async (id: string, payload: Partial<IBook>) => {
-
+  console.log()
   const existingBook = await Book.findById(id);
 
   if (!existingBook) {

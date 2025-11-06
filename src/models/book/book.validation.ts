@@ -11,22 +11,24 @@ export const GenreEnum = z.enum([
 ]);
 
 
-export const createBookSchema = z.object ({
-  title: z.string().min(1, "Title is required"),
-  author: z.string().min(1, "Author is required"),
-  genre: GenreEnum,
-  isbn: z.string().min(1, "ISBN is required"),
-  description: z.string().optional(),
-  copies: z
-    .number()
+export const createBookSchema = z.object({
+    title: z.string().min(1, "Title is required"),
+    author: z.string().min(1, "Author is required"),
+    genre: GenreEnum,
+    isbn: z.string().min(1, "ISBN is required"),
+    description: z.string().optional(),
+    copies: z
+      .number()
     .int("Copies must be an integer")
     .nonnegative("Copies must be zero or more"),
-  available: z.boolean().optional().default(true),
-
+    available: z.boolean().optional().default(true),
+ 
 });
 
 
-
+//  body: z.object({
+  
+//   })
 
 
 export const updateBookSchema = z.object({

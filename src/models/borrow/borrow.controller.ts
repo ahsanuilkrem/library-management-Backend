@@ -6,8 +6,9 @@ import httpStatus from "http-status-codes"
 
 
 const  createBorrow = catchAsync(async (req: Request, res: Response) => {
-
+    console.log("🔥 Incoming borrow request body:", req.body);
    const result = await BorrowService.createBorrow(req.body);
+
    
    sendResponse(res, {
       success : true,

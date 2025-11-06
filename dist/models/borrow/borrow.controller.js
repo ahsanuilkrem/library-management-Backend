@@ -18,6 +18,7 @@ const catchAsyncts_1 = require("../../utils/catchAsyncts");
 const sendRespone_1 = require("../../utils/sendRespone");
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
 const createBorrow = (0, catchAsyncts_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("🔥 Incoming borrow request body:", req.body);
     const result = yield borrow_service_1.BorrowService.createBorrow(req.body);
     (0, sendRespone_1.sendResponse)(res, {
         success: true,

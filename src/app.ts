@@ -7,9 +7,12 @@ import notFound from "./middlewares/notFound";
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
 
+app.use(express.json());
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
 app.use("/api", router);
 
 app.get("/", (req:Request, res:Response) => {

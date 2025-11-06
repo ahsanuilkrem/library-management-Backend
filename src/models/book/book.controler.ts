@@ -8,9 +8,8 @@ import { sendResponse } from "../../utils/sendRespone";
 
 
   const createBook = catchAsync(async (req: Request, res : Response, next : NextFunction) => {
-    
-  const result = await BookService.createBook(req.body);  
-
+      
+  const result = await BookService.createBook(req.body);
    sendResponse(res, {
       success : true,
       statusCode : httpStatus.CREATED,
@@ -53,7 +52,8 @@ const getBookById = catchAsync( async (req: Request, res: Response) => {
   })
 
 const updateBook = catchAsync(async (req: Request, res: Response) => {
-
+  // console.log(req);
+console.log(req.params.id, req.body); 
   const result =  await BookService.updateBook(req.params.id, req.body);
 
     sendResponse(res, {

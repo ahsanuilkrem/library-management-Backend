@@ -22,6 +22,8 @@ exports.createBookSchema = zod_1.z.object({
         .nonnegative("Copies must be zero or more"),
     available: zod_1.z.boolean().optional().default(true),
 });
+//  body: z.object({
+//   })
 exports.updateBookSchema = zod_1.z.object({
     title: zod_1.z.string().min(1).optional(),
     author: zod_1.z.string().min(1).optional(),

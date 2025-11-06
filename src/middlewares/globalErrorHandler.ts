@@ -35,12 +35,12 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
         message = simplifiedError.message
     }
     //  zod error
-    else if (err.name === "ZodError") {
-        const simplifiedError = handlerZodError(err)
-        statusCode = simplifiedError.statusCode
-        message = simplifiedError.message
-        errorSources = simplifiedError.errorSources as TErrorSources[]
-    }
+    // else if (err.name === "ZodError") {
+    //     const simplifiedError = handlerZodError(err)
+    //     statusCode = simplifiedError.statusCode
+    //     message = simplifiedError.message
+    //     errorSources = simplifiedError.errorSources as TErrorSources[]
+    // }
     //Mongoose Validation Error
     else if (err.name === "ValidationError") {
         const simplifiedError = handlerValidationError(err)

@@ -48,6 +48,8 @@ const getBookById = (0, catchAsyncts_1.catchAsync)((req, res) => __awaiter(void 
     });
 }));
 const updateBook = (0, catchAsyncts_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log(req);
+    console.log(req.params.id, req.body);
     const result = yield book_service_1.BookService.updateBook(req.params.id, req.body);
     (0, sendRespone_1.sendResponse)(res, {
         statusCode: http_status_codes_1.default.OK,

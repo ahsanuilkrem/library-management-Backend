@@ -9,7 +9,6 @@ const AppError_1 = __importDefault(require("../errorHelpers/AppError"));
 const handlerDuplicateError_1 = require("../helpers/handlerDuplicateError");
 const handleCastError_1 = require("../helpers/handleCastError");
 const handlerValidationError_1 = require("../helpers/handlerValidationError");
-const handlerZodError_1 = require("../helpers/handlerZodError");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 const globalErrorHandler = (err, req, res, next) => {
     if (env_1.envVars.NODE_ENV === "development") {
@@ -31,12 +30,12 @@ const globalErrorHandler = (err, req, res, next) => {
         message = simplifiedError.message;
     }
     //  zod error
-    else if (err.name === "ZodError") {
-        const simplifiedError = (0, handlerZodError_1.handlerZodError)(err);
-        statusCode = simplifiedError.statusCode;
-        message = simplifiedError.message;
-        errorSources = simplifiedError.errorSources;
-    }
+    // else if (err.name === "ZodError") {
+    //     const simplifiedError = handlerZodError(err)
+    //     statusCode = simplifiedError.statusCode
+    //     message = simplifiedError.message
+    //     errorSources = simplifiedError.errorSources as TErrorSources[]
+    // }
     //Mongoose Validation Error
     else if (err.name === "ValidationError") {
         const simplifiedError = (0, handlerValidationError_1.handlerValidationError)(err);

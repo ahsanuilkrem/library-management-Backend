@@ -49,6 +49,7 @@ const getBookById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 const updateBook = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log();
     const existingBook = yield book_model_1.Book.findById(id);
     if (!existingBook) {
         throw new Error("Book not found.");
